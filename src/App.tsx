@@ -1,33 +1,55 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const initTask = [{
+    id: 1,
+    task: '仕事',
+  }]
+
+  function generateId() {
+    return Math.floor(Math.random() * 90) + 10;
+  }
+
+  const [text, setText] = useState('')
+  const [todos, setTodos] = useState(initTask)
+  
+
+  const addTodo = () => {
+    const newTodos: any = [...todos, { id: generateId(), task: text}];
+    console.log(newTodos);
+    setTodos(newTodos);
+    setText('');
+  }
+
+  const endTask = (_todo) => {
+    const task = todos.filter((todo) => todo.id !== _todo.id)
+    setTodos(task);
+  }
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <h1 className='text-center text-4xl mt-8'>
+      Todoアプリ
+    </h1>
+    <div className='text-center mt-8 space-x-4'>
+      <input className='border border-blue-500 text-center p-2' type="text" value={text} onChange={(e) => setText(e.target.value)} />
+      <button className='bg-blue-400 rounded-lg p-2 text-white' onClick={addTodo}>タスクに追加する</button>
+    </div>
+
+    <div className='border mt-8 text-center w-1/2 mx-auto h-full'>
+      <ol>
+        { todos.map((todo) => {
+          return (
+            <div className='flex justify-center space-x-4 items-center'>
+              <li key={todo.id} className='mt-4 mb-4'>{todo.task}</li> 
+              <button className='bg-blue-500 rounded-lg p-1 text-white' onClick={() => endTask(todo)}>完了</button>
+            </div>
+          )}
+        )}
+      </ol>
+    </div>
     </>
   )
 }
