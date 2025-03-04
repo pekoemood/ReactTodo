@@ -17,7 +17,6 @@ function App() {
 
   const addTodo = () => {
     const newTodos: any = [...todos, { id: generateId(), task: text}];
-    console.log(newTodos);
     setTodos(newTodos);
     setText('');
   }
