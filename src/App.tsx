@@ -12,7 +12,7 @@ function App() {
   }
 
   const [text, setText] = useState('')
-  const [todos, setTodos] = useState(initTask)
+  const [todos, setTodos] = useState([]);
   
 
   const addTodo = () => {
@@ -37,7 +37,7 @@ function App() {
       <button className='bg-blue-400 rounded-lg p-2 text-white' onClick={addTodo}>タスクに追加する</button>
     </div>
 
-    <div className='border mt-8 text-center w-1/2 mx-auto h-full'>
+    <div className='border p-8 mt-8 text-center w-1/2 mx-auto h-full'>
       <ol>
         { todos.map((todo) => {
           return (
