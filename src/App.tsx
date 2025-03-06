@@ -15,7 +15,8 @@ function App() {
   const [todos, setTodos] = useState([]);
   
 
-  const addTodo = () => {
+  const addTodo = (e) => {
+    e.preventDefault();
     const newTodos: any = [...todos, { id: generateId(), task: text}];
     setTodos(newTodos);
     setText('');
@@ -33,8 +34,11 @@ function App() {
       Todoアプリ
     </h1>
     <div className='text-center mt-8 space-x-4'>
-      <input className='border border-blue-500 text-center p-2' type="text" value={text} onChange={(e) => setText(e.target.value)} />
-      <button className='bg-blue-400 rounded-lg p-2 text-white' onClick={addTodo}>タスクに追加する</button>
+      <form onSubmit={(e) => addTodo(e)}>
+        <input className='border border-blue-500 text-center p-2' type="text" value={text} onChange={(e) => setText(e.target.value)} />
+        <button className='bg-blue-400 rounded-lg p-2 text-white' onClick={addTodo}>タスクに追加する</button>
+        </form>
+
     </div>
 
     <div className='border p-8 mt-8 text-center w-1/2 mx-auto h-full'>
