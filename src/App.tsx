@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TaskList } from "./assets/component/Input";
+import { TaskList } from "./assets/component/TaskList";
 import { Input } from "./assets/component/Input";
 
 
@@ -8,11 +8,6 @@ const App = () => {
   const [todos, setTodos] = useState([])
   const [text, setText] = useState();
 
-
-
-
-
-  
   function addTask() {
     setTodos((pres) => [...pres, {id: nextId++, task: text}])
     setText('');
