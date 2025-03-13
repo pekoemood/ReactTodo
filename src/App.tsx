@@ -34,7 +34,7 @@ const App = () => {
     <>
     <div className="container mx-auto text-center">
       <h1 className="text-4xl my-8">Todoアプリ</h1>
-        <Input text={text} addTask={addTask}/>
+        <Input text={text} addTask={addTask} setText={setText}/>
       <ol>
         {todos.map((todo) => 
             <TaskList todo={todo} editTask={editTask} deleteTask={deleteTask}/>
