@@ -1,47 +1,30 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { TaskList } from "./assets/component/TaskList";
 import { Input } from "./assets/component/Input";
+import { DispatchContext, todoReducer, TodosContext } from "./assets/reducers/TodoReducers";
 
 
-let nextId = 0
+let nextId = 1
 const App = () => {
-  const [todos, setTodos] = useState([])
   const [text, setText] = useState();
+  const [todos, dispatch] = useReducer(todoReducer, [{id:0, task: '寝る！'}])
 
   function addTask() {
-    setTodos((pres) => [...pres, {id: nextId++, task: text}])
+    dispatch({type: 'addTask', id: nextId++, task: text})
     setText('');
-  }
-
-  function input(e) {
-    setText(e.target.value);
-  }
-
-  function deleteTask(todoId) {
-    setTodos((pres) => {
-      return pres.filter((todo) => todo.id !== todoId)
-  })
-}
-
-  function editTask(todoId, e) {
-    setTodos((prevs) => {
-      return prevs.map((todo) => todo.id === todoId ? {...todo, task: e.target.value} : todo)
-    })
   }
 
 
   return (
-    <>
-    <div className="container mx-auto text-center">
-      <h1 className="text-4xl my-8">Todoアプリ</h1>
-        <Input text={text} addTask={addTask} setText={setText}/>
-      <ol>
-        {todos.map((todo) => 
-            <TaskList todo={todo} editTask={editTask} deleteTask={deleteTask}/>
-          )}
-      </ol>
-    </div>
-    </>
+    <TodosContext value={todos}>
+      <DispatchContext value={dispatch}>
+        <div className="container mx-auto text-center">
+        <h1 className="text-4xl my-8">Todoアプリ</h1>
+          <Input text={text} addTask={addTask} setText={setText}/>
+          <TaskList/>
+        </div>
+      </DispatchContext>
+    </TodosContext>
 
   )
 }
